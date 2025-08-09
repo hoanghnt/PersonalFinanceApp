@@ -1,0 +1,11 @@
+# Production Profile
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/personalfinance}
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.username=${DB_USERNAME:postgres}
+spring.datasource.password=${DB_PASSWORD:password}
+
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=false
+
+logging.level.com.personalfinance=INFO
+logging.level.org.springframework.security=WARN
