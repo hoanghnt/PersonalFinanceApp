@@ -10,17 +10,19 @@ public class CategoryResponse {
     private String color;
     private String icon;
     private Category.CategoryType type;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
+    private boolean isDeleted;
 
     //Constructor from Entity
     public CategoryResponse(Category category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.color = color;
-        this.icon = icon;
-        this.type = type;
-        this.createAt = createAt;
+        this.id = category.getId();
+        this.name = category.getName();
+        this.description = category.getDescription();
+        this.color = category.getColor();
+        this.icon = category.getIcon();
+        this.type = category.getType();
+        this.createdAt = category.getCreatedAt();
+        this.isDeleted = category.getIsDeleted();
     }
 
     //Getters and Setters
@@ -73,11 +75,19 @@ public class CategoryResponse {
         this.type = type;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(LocalDateTime createAt) {
+        this.createdAt = createAt;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

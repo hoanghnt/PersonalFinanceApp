@@ -70,7 +70,8 @@ public class AuthController {
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getFullName());
+                signUpRequest.getFullName(),
+                User.Role.USER);
 
         userRepository.save(user);
 

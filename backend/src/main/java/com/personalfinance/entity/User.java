@@ -32,16 +32,29 @@ public class User {
     @Size(max = 100)
     private String fullName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role = Role.USER;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
+
+    public enum Role {
+        USER,
+        ADMIN
+    }
+
     // Constructors
     public User() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+        this.role = Role.USER;
     }
 
     public User(String username, String email, String password, String fullName) {
@@ -50,6 +63,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.fullName = fullName;
+    }
+
+    public User(String username, String email, String password, String fullName, Role role) {
+        this(username, email, password, fullName);
+        this.role = role;
     }
 
     // Getters and Setters
@@ -73,6 +91,22 @@ public class User {
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
+
+    public Boolean getIsDeleted() { return isDeleted; }
+    public void setIsDeleted(Boolean isDeleted) { this.isDeleted = isDeleted; }
+
+    public void softDelete() {
+        this.isDeleted = true;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void restore() {
+        this.isDeleted = false;
+        this.updatedAt = LocalDateTime.now();
+    }
 
     @PreUpdate
     public void preUpdate() {
