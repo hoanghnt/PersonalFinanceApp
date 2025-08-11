@@ -19,12 +19,12 @@ public class CategoryService {
 
     //Get all categories
     public List<CategoryResponse> getAllCategories() {
-        return categoryRepository.findByIsDeletedFalse().stream().map(CategoryResponse::new).collect(Collectors.toList());
+        return categoryRepository.findAll().stream().map(CategoryResponse::new).collect(Collectors.toList());
     }
 
     //Get all categories by type
     public List<CategoryResponse> getCategoriesByType(Category.CategoryType type) {
-        return categoryRepository.findByTypeAndIsDeletedFalse(type).stream().map(CategoryResponse::new).collect(Collectors.toList());
+        return categoryRepository.findByType(type).stream().map(CategoryResponse::new).collect(Collectors.toList());
     }
 
     //Get category by id
@@ -34,7 +34,7 @@ public class CategoryService {
 
     //Create new category
     public CategoryResponse createCategory(CategoryRequest request) {
-        if (categoryRepository.existsByNameAndIsDeletedFalse(request.getName())) {
+        if (categoryRepository.existsByName(request.getName())) {
             throw new RuntimeException("Category with name '" + request.getName() + "' already exists.");
         }
         Category category = new Category();
@@ -57,7 +57,7 @@ public class CategoryService {
         }
 
         //Check if name already exists (excluding current category)
-        if (!category.getName().equals(request.getName()) && categoryRepository.existsByNameAndIsDeletedFalseAndIdNot(request.getName(), id)) {
+        if (!category.getName().equals(request.getName()) && categoryRepository.existsByName(request.getName(), id)) {
             throw new RuntimeException("Category with name '" + request.getName() + "' already exists.");
         }
 
@@ -83,7 +83,7 @@ public class CategoryService {
 
     //Search category by name
     public List<CategoryResponse> searchCategory(String name) {
-        return categoryRepository.findByNameContainingIgnoreCaseAndIsDeletedFalse(name)
+        return categoryRepository.findByNameContainingIgnoreCase(name)
                 .stream()
                 .map(CategoryResponse::new)
                 .collect(Collectors.toList());

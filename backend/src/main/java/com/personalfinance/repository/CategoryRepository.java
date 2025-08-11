@@ -8,11 +8,11 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByIsDeletedFalse();
-    List<Category> findByTypeAndIsDeletedFalse(Category.CategoryType type);
-    List<Category> findByNameContainingIgnoreCaseAndIsDeletedFalse(String name);
-    boolean existsByNameAndIsDeletedFalse(String name);
-    boolean existsByNameAndIsDeletedFalseAndIdNot(String name, Long id);
+    List<Category> findAll();
+    List<Category> findByType(Category.CategoryType type);
+    List<Category> findByNameContainingIgnoreCase(String name);
+    boolean existsByName(String name);
+    boolean existsByName(String name, Long id);
 
 
 }
