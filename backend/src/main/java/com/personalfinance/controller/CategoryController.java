@@ -21,7 +21,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/categories")
-@Tag(name = "Category Management", description = "APIs for managing categories")
+@Tag(name = "Category", description = "APIs for managing categories")
 @SecurityRequirement(name = "bearerAuth")
 public class CategoryController {
 

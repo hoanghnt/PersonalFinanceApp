@@ -57,7 +57,7 @@ public class CategoryService {
         }
 
         //Check if name already exists (excluding current category)
-        if (!category.getName().equals(request.getName()) && categoryRepository.existsByName(request.getName(), id)) {
+        if (!category.getName().equals(request.getName()) && categoryRepository.existsByNameAndId(request.getName(), id)) {
             throw new RuntimeException("Category with name '" + request.getName() + "' already exists.");
         }
 
@@ -83,7 +83,7 @@ public class CategoryService {
 
     //Search category by name
     public List<CategoryResponse> searchCategory(String name) {
-        return categoryRepository.findByNameContainingIgnoreCase(name)
+        return categoryRepository.findByName(name)
                 .stream()
                 .map(CategoryResponse::new)
                 .collect(Collectors.toList());
